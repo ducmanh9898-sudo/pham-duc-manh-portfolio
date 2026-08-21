@@ -113,7 +113,7 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
         <div class="box-description-line"></div>
         <div class="box-description-copy">
           <AppearingText
-            :text="profile.tagline"
+            :text="profile.creative.story"
             :steps="3"
             :duration="0.7"
             @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0)"

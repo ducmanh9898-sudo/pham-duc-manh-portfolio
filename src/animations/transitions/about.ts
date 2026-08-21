@@ -211,38 +211,91 @@ const setupSectionsAnimation = ({
     const completed = { value: false };
     tl.to(completed, { value: true, duration: 0 }, 1);
 
-    if (isLandscape) {
-      // Equal spacing between three animations: 0, 0.275, 0.55
-      const DETAILS_DELAY = 0;
-      const DESCRIPTION_DELAY = 0.4;
-      const SERVICES_DELAY = 0.8;
+   if (isLandscape) {
+  const DETAILS_DELAY = 0;
+  const DESCRIPTION_DELAY = 0.4;
+  const SERVICES_DELAY = 0.8;
 
-      // Details animation (first, only on landscape)
-      tl.fromTo(contentDetails, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, DETAILS_DELAY);
-      //tl.fromTo(contentDetails, { y: "12.5vh" }, { y: "0vh", duration: 0.35, ease: "none" }, DETAILS_DELAY);
-      tl.add(() => {
-        tlDetails?.play();
-      }, DETAILS_DELAY);
+  const FADE_DURATION = 0.15;
 
-      // Description animation
-      tl.fromTo(
-        contentDescription,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.15, ease: "power1.out" },
-        DESCRIPTION_DELAY,
-      );
-      //tl.fromTo(contentDescription, { y: "12.5vh" }, { y: "0vh", duration: 0.35, ease: "none" }, DESCRIPTION_DELAY);
-      tl.add(() => {
-        tlDescription?.play();
-      }, DESCRIPTION_DELAY);
+  // Start every hologram hidden.
+  gsap.set(
+    [
+      contentDetails,
+      contentDescription,
+      contentServices,
+    ],
+    {
+      opacity: 0,
+    },
+  );
 
-      // Services animation
-      tl.fromTo(contentServices, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, SERVICES_DELAY);
-      //tl.fromTo(contentServices, { y: "12.5vh" }, { y: 0, duration: 0.35, ease: "none" }, SERVICES_DELAY);
-      tl.add(() => {
-        tlServices?.play();
-      }, SERVICES_DELAY);
-    } else {
+  // --------------------------------------------------
+  // 1. PROFILE
+  // Appears first and stays visible.
+  // --------------------------------------------------
+
+  tl.fromTo(
+    contentDetails,
+    {
+      opacity: 0,
+    },
+    {
+      opacity: 1,
+      duration: FADE_DURATION,
+      ease: "power1.out",
+    },
+    DETAILS_DELAY,
+  );
+
+  tl.add(() => {
+    tlDetails?.play();
+  }, DETAILS_DELAY);
+
+  // --------------------------------------------------
+  // 2. STORY
+  // Appears next while PROFILE remains visible.
+  // --------------------------------------------------
+
+  tl.fromTo(
+    contentDescription,
+    {
+      opacity: 0,
+    },
+    {
+      opacity: 1,
+      duration: FADE_DURATION,
+      ease: "power1.out",
+    },
+    DESCRIPTION_DELAY,
+  );
+
+  tl.add(() => {
+    tlDescription?.play();
+  }, DESCRIPTION_DELAY);
+
+  // --------------------------------------------------
+  // 3. FOCUS AREAS
+  // Appears last while PROFILE + STORY remain visible.
+  // --------------------------------------------------
+
+  tl.fromTo(
+    contentServices,
+    {
+      opacity: 0,
+    },
+    {
+      opacity: 1,
+      duration: FADE_DURATION,
+      ease: "power1.out",
+    },
+    SERVICES_DELAY,
+  );
+
+  tl.add(() => {
+    tlServices?.play();
+  }, SERVICES_DELAY);
+} else {
       // Mobile: only description and services (details hidden on portrait)
       const DESCRIPTION_DELAY = 0;
       const SERVICES_DELAY = 0.6;

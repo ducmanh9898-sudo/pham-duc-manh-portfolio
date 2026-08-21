@@ -1,17 +1,17 @@
 export const skills = [
   {
+    name: "Data Engineering & Pipelines",
+  },
+  {
     name: "Data Analytics & Business Intelligence",
   },
   {
-    name: "Data Engineering & MLOps",
+    name: "Machine Learning & Applied AI",
   },
   {
-    name: "Product & System Analysis",
+    name: "System & Business Analysis",
   },
   {
-    name: "Python, SQL & Databases",
-  },
-  {
-    name: "Agile & Project Coordination",
+    name: "Agile Delivery & Testing",
   },
 ] as const;

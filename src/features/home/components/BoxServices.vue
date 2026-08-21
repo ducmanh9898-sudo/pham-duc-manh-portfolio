@@ -2,7 +2,7 @@
 import { ref, watchEffect, onBeforeUnmount } from "vue";
 import gsap from "gsap";
 import { skills } from "../../../content/skills";
-import { t } from "../../../i18n/utils/translate";
+
 import AppearingText from "../../../components/AppearingText.vue";
 import { BREAKPOINTS } from "../../../utils/sizes";
 import { Vector3 } from "three";
@@ -117,7 +117,7 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
       <div class="box-services-content">
         <div class="box-services-title">
           <AppearingText
-            :text="t('services')"
+  text="FOCUS AREAS"
             :steps="1"
             :duration="0.35"
             @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0)"

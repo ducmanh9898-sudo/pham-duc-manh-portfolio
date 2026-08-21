@@ -103,26 +103,61 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
   <ProjectedElement :point="point">
     <div ref="wrapperRef" class="box-details">
       <div class="box-details-content">
-        <div class="box-details-title">
-          <AppearingText
-           :text="profile.firstName"
-            :steps="1"
-            :duration="0.35"
-            @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0)"
-          />
-        </div>
-        <div class="box-details-items">
-          <div class="box-details-item">
-            <PinIcon class="box-details-icon" />
-            <AppearingText
-  class="box-details-content-copy"
-  :text="profile.location"
-              :steps="3"
-              :duration="0.35"
-              @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0.1)"
-            />
-          </div>
-        </div>
+        
+    <div class="box-details-title">
+  <AppearingText
+    text="PROFILE"
+    :steps="1"
+    :duration="0.35"
+    @timeline:created="
+      (tl: gsap.core.Timeline) =>
+        handleTimelineCreated(tl, 0)
+    "
+  />
+</div>
+
+<div class="box-details-items">
+  <div class="box-details-item">
+    <AppearingText
+      class="box-details-content-copy"
+      :text="profile.creative.status"
+      :steps="2"
+      :duration="0.35"
+      @timeline:created="
+        (tl: gsap.core.Timeline) =>
+          handleTimelineCreated(tl, 0.08)
+      "
+    />
+  </div>
+
+  <div class="box-details-item">
+    <AppearingText
+      class="box-details-content-copy"
+      :text="profile.creative.focus"
+      :steps="2"
+      :duration="0.35"
+      @timeline:created="
+        (tl: gsap.core.Timeline) =>
+          handleTimelineCreated(tl, 0.14)
+      "
+    />
+  </div>
+
+  <div class="box-details-item">
+    <PinIcon class="box-details-icon" />
+
+    <AppearingText
+      class="box-details-content-copy"
+      :text="profile.location"
+      :steps="3"
+      :duration="0.35"
+      @timeline:created="
+        (tl: gsap.core.Timeline) =>
+          handleTimelineCreated(tl, 0.2)
+      "
+    />
+  </div>
+</div>
       </div>
     </div>
   </ProjectedElement>
@@ -206,7 +241,8 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
     align-items: center;
     gap: var(--space-xs);
     flex-direction: row;
-    white-space: nowrap;
+    white-space: normal;
+line-height: 1.25;
     height: var(--icon-size-sm);
   }
 

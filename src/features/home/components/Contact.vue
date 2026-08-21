@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import { transitions } from "../../../animations";
-import { t } from "../../../i18n/utils/translate";
+import { profile } from "../../../content/profile";
 import Social from "../../../components/Social.vue";
 
 const contactElement = ref<HTMLElement | null>(null);
@@ -20,7 +20,15 @@ onUnmounted(() => {
 <template>
   <div class="contact grid" ref="contactElement">
     <div class="contact-content">
-      <h2 class="contact-title" v-html="t('lets-work-together')"></h2>
+      <h2 class="contact-title">
+  Let's build
+  <br />
+  something useful.
+</h2>
+
+<p class="contact-subtitle">
+  {{ profile.creative.focus }}
+</p>
       <Social variant="background" />
     </div>
   </div>
@@ -38,6 +46,13 @@ onUnmounted(() => {
   @include mixins.mq("md") {
     padding-top: var(--space-xxl);
   }
+  &-subtitle {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
 
   &-content {
     position: relative;

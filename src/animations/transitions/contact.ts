@@ -4,10 +4,14 @@ import { animations as avatarAnimations } from "../../three/objects/avatar/anima
 import { createMatchMedia } from "../utils/matchMedia";
 
 let inTl: gsap.core.Timeline | null = null;
-let outTl: gsap.core.Timeline | null = null;
 let wakeUpMm: gsap.MatchMedia | null = null;
 
 const setup = (contact: HTMLElement) => {
+  // Contact is the final scene.
+  // Keep its "out" weight at zero so the avatar
+  // remains visible while the visitor reaches the bottom.
+  sceneWeightsInOut.contact.out = 0;
+
   inTl = gsap.timeline({
     scrollTrigger: {
       trigger: contact,
@@ -17,27 +21,17 @@ const setup = (contact: HTMLElement) => {
     },
   });
 
-  inTl.fromTo(sceneWeightsInOut.contact, { in: 0 }, { in: 1, duration: 1, ease: "none" }, 0);
-
-  outTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: contact,
-      start: "bottom bottom",
-      end: "bottom top",
-      scrub: true,
+  inTl.fromTo(
+    sceneWeightsInOut.contact,
+    { in: 0 },
+    {
+      in: 1,
+      duration: 1,
+      ease: "none",
     },
-  });
-  outTl.fromTo(sceneWeightsInOut.contact, { out: 0 }, { out: 1, duration: 1, ease: "none" }, 0);
+    0,
+  );
 
-  /**  wakeUpTrigger = ScrollTrigger.create({
-    trigger: contact,
-    start: "center 75%",
-    onEnter: () => {
-      gsap.delayedCall(0.25, () => {
-        avatarAnimations.wakeUp();
-      });
-    },
-  }); */
   wakeUpMm = createMatchMedia((_context, { isMobile }) => {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -45,6 +39,7 @@ const setup = (contact: HTMLElement) => {
         start: isMobile ? "top 10%" : "top 15%",
       },
     });
+
     tl.call(avatarAnimations.wakeUp, [0.25]);
   });
 };
@@ -54,14 +49,17 @@ const destroy = () => {
     inTl.kill();
     inTl = null;
   }
-  if (outTl) {
-    outTl.kill();
-    outTl = null;
-  }
+
   if (wakeUpMm) {
     wakeUpMm.kill();
     wakeUpMm = null;
   }
+
+  sceneWeightsInOut.contact.in = 0;
+  sceneWeightsInOut.contact.out = 0;
 };
 
-export const contact = { setup, destroy };
+export const contact = {
+  setup,
+  destroy,
+};

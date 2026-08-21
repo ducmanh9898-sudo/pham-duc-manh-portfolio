@@ -10,7 +10,18 @@ export const profile = {
     "Building practical systems and data-driven solutions from real-world problems.",
 
   about:
-    "Final-year Computer Science student interested in data, systems, product thinking, and applied AI. I enjoy turning business and operational problems into practical technical solutions through system analysis, data analytics, automation, and machine learning.",
+    "Computer Science student interested in data, systems, product thinking, and applied AI. I enjoy turning business and operational problems into practical technical solutions through system analysis, data analytics, automation, and machine learning.",
+
+  creative: {
+    story:
+      "I enjoy turning messy real-world problems into structured data, useful systems, and practical solutions.",
+
+    status:
+      "Computer Science Student",
+
+    focus:
+      "Data • Systems • Analytics",
+  },
 
   education: {
     university: "Ton Duc Thang University",
