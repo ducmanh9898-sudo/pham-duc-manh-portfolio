@@ -1,56 +1,21 @@
 <script setup lang="ts">
 import { profile } from "../../../content/profile";
 import ExperienceSwitcher from "../../gateway/components/ExperienceSwitcher.vue";
+import ProfessionalProjects from "./ProfessionalProjects.vue";
+import ProfessionalStack from "./ProfessionalStack.vue";
+import ProfessionalHero from "./ProfessionalHero.vue";
+import ProfessionalEducation from "./ProfessionalEducation.vue";
+import ProfessionalCertifications from "./ProfessionalCertifications.vue";
+import ProfessionalContact from "./ProfessionalContact.vue";
+import ProfessionalNav from "./ProfessionalNav.vue";
 </script>
 
 <template>
   <main class="professional">
   <ExperienceSwitcher />
-    <nav class="professional-nav">
-      <div>
-        <strong>{{ profile.name }}</strong>
-        <span> / Portfolio</span>
-      </div>
-
-      <div class="nav-links">
-        <a href="#professional-about">About</a>
-        <a href="#professional-projects">Projects</a>
-        <a href="#professional-contact">Contact</a>
-      </div>
-    </nav>
-
-    <section class="professional-hero">
-      <div class="hero-copy">
-        <p class="eyebrow">COMPUTER SCIENCE / DATA / SYSTEMS</p>
-
-        <h1>
-          Building practical
-          <br />
-          data-driven systems.
-        </h1>
-
-        <p class="hero-description">
-          {{ profile.about }}
-        </p>
-      </div>
-
-      <div class="hero-meta">
-        <div class="metric">
-          <span>SELECTED WORK</span>
-          <strong>05+</strong>
-        </div>
-
-        <div class="metric">
-          <span>GPA</span>
-          <strong>{{ profile.education.gpa }}</strong>
-        </div>
-
-        <div class="metric">
-          <span>ENGLISH</span>
-          <strong>{{ profile.english.level }}</strong>
-        </div>
-      </div>
-    </section>
+  <ProfessionalNav />
+   
+   <ProfessionalHero />
 
     <section id="professional-about" class="professional-section">
       <div class="section-number">01</div>
@@ -65,35 +30,21 @@ import ExperienceSwitcher from "../../gateway/components/ExperienceSwitcher.vue"
         </p>
       </div>
     </section>
+    <ProfessionalStack />
+    <ProfessionalProjects />
+    <ProfessionalEducation />
 
-    <section id="professional-projects" class="professional-section">
-      <div class="section-number">02</div>
+<ProfessionalCertifications />
 
-      <div>
-        <p class="section-label">SELECTED PROJECTS</p>
+<ProfessionalContact /> 
+    
 
-        <h2>Projects will live here.</h2>
-
-        <p class="section-copy">
-          This section will become the recruiter-focused case study view
-          in the next stage.
-        </p>
-      </div>
-    </section>
-
-    <section id="professional-contact" class="professional-section">
-      <div class="section-number">03</div>
-
-      <div>
-        <p class="section-label">LOCATION</p>
-
-        <h2>{{ profile.location }}</h2>
-      </div>
-    </section>
+   
   </main>
 </template>
 
 <style scoped>
+
 .professional {
   min-height: 100vh;
   background: #f6f7f9;
@@ -221,9 +172,44 @@ import ExperienceSwitcher from "../../gateway/components/ExperienceSwitcher.vue"
     grid-template-columns: 1fr;
     gap: 24px;
   }
+  .professional-section {
+  min-height: 55vh;
+  border-top: 1px solid #d9dde3;
+  padding: 7vh 5vw;
+
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+}
+
+@media (max-width: 800px) {
+  .professional-section {
+    min-height: auto;
+
+    padding: 70px 20px;
+
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
 
   .hero-copy h1 {
     font-size: clamp(48px, 15vw, 78px);
   }
 }
+:global(html) {
+  scroll-behavior: smooth;
+}
+
+:global(
+  #professional-top,
+  #professional-about,
+  #professional-stack,
+  #professional-projects,
+  #professional-education,
+  #professional-certifications,
+  #professional-contact
+) {
+  scroll-margin-top: 68px;
+}
+
 </style>
