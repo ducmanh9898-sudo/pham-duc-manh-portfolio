@@ -2,6 +2,9 @@
 import { onMounted } from "vue";
 import NotchSection from "../../../components/NotchSection.vue";
 import { portfolioProjects } from "../../../content/portfolioProjects";
+import { useCaseStudy } from "../../../composables/useCaseStudy";
+
+const { openCaseStudy } = useCaseStudy();
 
 const emit = defineEmits<{
   (e: "loaded"): void;
@@ -103,15 +106,20 @@ onMounted(() => {
               </span>
             </div>
 
-            <div class="card-footer">
-              <span>
-                PROJECT SNAPSHOT
-              </span>
+            <button
+  type="button"
+  class="card-footer"
+  :aria-label="`Read ${project.title} case study`"
+  @click="openCaseStudy(project.id)"
+>
+  <span>
+    READ FULL CASE STUDY
+  </span>
 
-              <span class="card-arrow">
-                ↗
-              </span>
-            </div>
+  <span class="card-arrow">
+    ↗
+  </span>
+</button>
           </div>
         </article>
       </div>
@@ -509,20 +517,39 @@ onMounted(() => {
 }
 
 .card-footer {
+  width: 100%;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   margin-top: 26px;
-  padding-top: 15px;
+  padding: 15px 0 0;
 
+  border: 0;
   border-top:
     1px solid rgba(23, 21, 29, 0.25);
 
+  background: transparent;
+  color: #17151d;
+
+  font: inherit;
   font-size: 9px;
   font-weight: 700;
-
   letter-spacing: 0.12em;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+.card-footer:hover .card-arrow {
+  transform: translate(4px, -4px);
+}
+
+.card-arrow {
+  font-size: 20px;
+
+  transition: transform 0.2s ease;
 }
 
 .card-arrow {

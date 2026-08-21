@@ -2,7 +2,7 @@
 import ChooseExperience from "./features/gateway/components/ChooseExperience.vue";
 import ProfessionalHome from "./features/professional/components/ProfessionalHome.vue";
 import CreativeExperience from "./features/creative/components/CreativeExperience.vue";
-
+import ProjectCaseStudy from "./features/case-study/components/ProjectCaseStudy.vue";
 import { useExperience } from "./composables/useExperience";
 import { useTranslations } from "./i18n/composables/useTranslations";
 import { usePreloader } from "./composables/usePreloader";
@@ -33,4 +33,5 @@ useClickSound();
   <CreativeExperience
     v-else-if="experience === 'creative'"
   />
+  <ProjectCaseStudy />
 </template>

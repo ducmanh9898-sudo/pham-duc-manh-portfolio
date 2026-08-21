@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { portfolioProjects } from "../../../content/portfolioProjects";
+import { useCaseStudy } from "../../../composables/useCaseStudy";
 
+const { openCaseStudy } = useCaseStudy();
 const activeProject = ref<string | null>(null);
 
 const toggleProject = (projectId: string) => {
@@ -81,8 +83,16 @@ const toggleProject = (projectId: string) => {
       activeProject === project.id
         ? "CLOSE DETAILS"
         : "VIEW DETAILS"
+        
     }}
   </span>
+  <button
+  type="button"
+  class="case-study-link"
+  @click="openCaseStudy(project.id)"
+>
+  READ FULL CASE STUDY ↗
+</button>
 
   <span
     class="toggle-icon"
@@ -134,9 +144,14 @@ const toggleProject = (projectId: string) => {
 
         </div>
 
-        <div class="project-arrow">
-          ↗
-        </div>
+       <button
+  type="button"
+  class="project-arrow"
+  :aria-label="`Open ${project.title} case study`"
+  @click="openCaseStudy(project.id)"
+>
+  ↗
+</button>
       </article>
     </div>
   </section>
@@ -297,7 +312,7 @@ const toggleProject = (projectId: string) => {
     gap: 5px;
   }
 }
-</style>
+
 .project-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -424,4 +439,41 @@ const toggleProject = (projectId: string) => {
     grid-template-columns: 1fr;
     gap: 28px;
   }
+}
+</style>
+.case-study-link {
+  margin-top: 12px;
+
+  border: 0;
+  padding: 0;
+
+  background: transparent;
+
+  color: #121417;
+
+  font: inherit;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+
+  cursor: pointer;
+}
+
+.project-arrow {
+  border: 0;
+  padding: 0;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  font-size: 24px;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
