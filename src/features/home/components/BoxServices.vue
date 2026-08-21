@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect, onBeforeUnmount } from "vue";
+import { ref, watchEffect, onBeforeUnmount } from "vue";
 import gsap from "gsap";
-import { locale } from "../../../i18n/store";
+import { skills } from "../../../content/skills";
 import { t } from "../../../i18n/utils/translate";
 import AppearingText from "../../../components/AppearingText.vue";
 import { BREAKPOINTS } from "../../../utils/sizes";
@@ -106,25 +106,9 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
   timelines.value = updatedTimelines;
 };
 
-const SERVICES_EN = [
-  { name: "Three.js & WebGL" },
-  { name: "Node.js & WebSockets" },
-  { name: "React & Vue" },
-  { name: "Kubernetes & Redis" },
-  { name: "Real-time Multiplayer" },
-] as const satisfies { name: string }[];
 
-const SERVICES_DE = [
-  { name: "Three.js & WebGL" },
-  { name: "Node.js & WebSockets" },
-  { name: "React & Vue" },
-  { name: "Kubernetes & Redis" },
-  { name: "Echtzeit-Mehrspieler" },
-] as const satisfies { name: string }[];
 
-const services = computed(() => {
-  return locale.value === "en" ? SERVICES_EN : SERVICES_DE;
-});
+
 </script>
 
 <template>
@@ -140,10 +124,14 @@ const services = computed(() => {
           />
         </div>
         <div class="box-services-list">
-          <div class="box-services-list-item" v-for="(service, index) in services" :key="service.name">
+          <div
+  class="box-services-list-item"
+  v-for="(skill, index) in skills"
+  :key="skill.name"
+>
             <p class="box-services-list-item-name">
               <AppearingText
-                :text="service.name"
+                :text="skill.name"
                 :steps="1"
                 :duration="0.35"
                 @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0.15 + index * 0.1)"

@@ -1,35 +1,19 @@
 import { watch } from "vue";
 import { loadTranslations } from "../utils/load";
 import { locale, translations } from "../store";
-import { onMounted } from "vue";
-import { LOCALES } from "../constants";
-
-import type { Locale } from "../types";
 
 export const useTranslations = () => {
-  onMounted(() => {
-    locale.value = window.localStorage.getItem("portfolio-locale") as Locale;
-    if (!locale.value) {
-      const preferredLocale = navigator.language.split("-")[0] as Locale;
+  // Portfolio is English-only
+  locale.value = "en";
 
-      if (preferredLocale in LOCALES) {
-        locale.value = preferredLocale;
-      } else {
-        locale.value = "en";
-      }
-    }
-  });
-
-  watch(locale, () => {
-    if (!locale.value) return;
-    window.localStorage.setItem("portfolio-locale", locale.value);
-  });
+  document.documentElement.lang = "en";
+  window.localStorage.setItem("portfolio-locale", "en");
 
   watch(
     locale,
-    async (newLocale) => {
-      if (!newLocale) return;
-      translations.value = (await loadTranslations("common", newLocale)) ?? {};
+    async () => {
+      translations.value =
+        (await loadTranslations("common", "en")) ?? {};
     },
     { immediate: true },
   );

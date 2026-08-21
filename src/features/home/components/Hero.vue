@@ -2,8 +2,13 @@
 import Button from "../../../components/Button.vue";
 import Banner from "../../../components/Banner.vue";
 import { preloaderVisible } from "../../../composables/usePreloader";
-import { t } from "../../../i18n/utils/translate";
+
 import AppearingText from "../../../components/AppearingText.vue";
+import { profile } from "../../../content/profile";
+
+const nameParts = profile.name.split(" ");
+const heroFirstLine = nameParts.slice(0, -1).join(" ");
+const heroSecondLine = nameParts[nameParts.length - 1];
 </script>
 
 <template>
@@ -11,8 +16,16 @@ import AppearingText from "../../../components/AppearingText.vue";
     <div class="hero-content grid">
       <div class="hero-content-inner" id="hero-content-inner">
         <div class="hero-content-copys">
-          <h1 class="hero-title">David<br />Heckhoff</h1>
-          <Banner class="hero-banner" :copy="t('job-title')" v-if="!preloaderVisible" animated />
+          <h1 class="hero-title">
+  {{ heroFirstLine }}<br />{{ heroSecondLine }}
+</h1>
+
+<Banner
+  class="hero-banner"
+  :copy="profile.title"
+  v-if="!preloaderVisible"
+  animated
+/>
         </div>
       </div>
     </div>

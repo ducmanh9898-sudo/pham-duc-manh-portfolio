@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from "../../../i18n/utils/translate";
+
 import { ref, watchEffect, onBeforeUnmount } from "vue";
 import gsap from "gsap";
 import AppearingText from "../../../components/AppearingText.vue";
@@ -7,6 +7,7 @@ import { BREAKPOINTS } from "../../../utils/sizes";
 import { Vector3 } from "three";
 import PinIcon from "../../../components/icons/Pin.vue";
 import ProjectedElement from "../../../components/ProjectedElement.vue";
+import { profile } from "../../../content/profile";
 
 const point = new Vector3(-0.76, 3.6, 6.75);
 
@@ -104,7 +105,7 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
       <div class="box-details-content">
         <div class="box-details-title">
           <AppearingText
-            text="David"
+           :text="profile.firstName"
             :steps="1"
             :duration="0.35"
             @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0)"
@@ -114,9 +115,8 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
           <div class="box-details-item">
             <PinIcon class="box-details-icon" />
             <AppearingText
-              v-if="t('germany')"
-              class="box-details-content-copy"
-              :text="t('germany')"
+  class="box-details-content-copy"
+  :text="profile.location"
               :steps="3"
               :duration="0.35"
               @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0.1)"
