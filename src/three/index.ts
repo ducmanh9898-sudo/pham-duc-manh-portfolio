@@ -8,20 +8,30 @@ import { raycast } from "./utils/raycast";
 
 let canvas: HTMLCanvasElement | null = null;
 
+const initializeThree = () => {
+  if (!canvas) return;
+
+  threeSizes.init(canvas);
+  camera.init();
+  renderTarget.init();
+  renderer.init(canvas);
+
+  objects.init();
+  raycast.init();
+};
+
 const init = (_canvas: HTMLCanvasElement) => {
   canvas = _canvas;
 
-  resources.once("ready", () => {
-    threeSizes.init(_canvas);
-    camera.init();
-    renderTarget.init();
-    renderer.init(canvas);
+  // Resources may already be loaded while the visitor
+  // is choosing an experience on the gateway.
+  if (resources.isReady) {
+    initializeThree();
+    return;
+  }
 
-    objects.init();
-    raycast.init();
-  });
+  resources.once("ready", initializeThree);
 };
-
 const destroy = () => {
   threeSizes.destroy();
   renderTarget.destroy();
